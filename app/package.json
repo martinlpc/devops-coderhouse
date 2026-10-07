@@ -2,9 +2,9 @@
   "name": "devops-coderhouse",
   "version": "1.0.0",
   "description": "",
-  "main": "app/src/server.js",
+  "main": "src/server.js",
   "scripts": {
-    "start": "node app/src/server.js",
+    "start": "node src/server.js",
     "test": "node --test"
   },
   "repository": {
@@ -12,7 +12,7 @@
     "url": "git+https://github.com/martinlpc/devops-coderhouse.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Martin Pacheco",
   "license": "ISC",
   "type": "module",
   "bugs": {
