@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devops-pf-api
+  namespace: devops-pf
+  labels:
+    app: devops-pf-api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: devops-pf-api
+  template:
+    metadata:
+      labels:
+        app: devops-pf-api
+    spec:
+      containers:
+        - name: api
+          image: devops-pf-api:1.0.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 3
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 200m
+              memory: 128Mi
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000 #UID de usuario 'node'
+            allowPrivilegeEscalation: false
