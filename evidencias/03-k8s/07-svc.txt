@@ -1,0 +1,3 @@
+> kubectl get svc -n devops-pf
+NAME            TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
+devops-pf-api   ClusterIP   10.104.56.45   <none>        80/TCP    38m

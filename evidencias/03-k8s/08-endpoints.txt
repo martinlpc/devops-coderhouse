@@ -1,0 +1,8 @@
+> kubectl get endpoints -n devops-pf
+Warning: v1 Endpoints is deprecated in v1.33+; use discovery.k8s.io/v1 EndpointSlice
+NAME            ENDPOINTS                     AGE
+devops-pf-api   10.1.0.6:3000,10.1.0.8:3000   39m
+> kubectl get pods -n devops-pf
+NAME                          READY   STATUS    RESTARTS   AGE
+devops-pf-api-dd7cd6d-6lxdp   1/1     Running   0          26m
+devops-pf-api-dd7cd6d-p5rxs   1/1     Running   0          143m

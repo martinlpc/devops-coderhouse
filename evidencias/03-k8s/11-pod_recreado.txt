@@ -1,0 +1,4 @@
+> kubectl get pods -n devops-pf
+NAME                          READY   STATUS    RESTARTS   AGE
+devops-pf-api-dd7cd6d-fcdhx   1/1     Running   0          117s
+devops-pf-api-dd7cd6d-p5rxs   1/1     Running   0          147m
