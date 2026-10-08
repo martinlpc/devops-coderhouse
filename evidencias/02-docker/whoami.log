@@ -1,0 +1,2 @@
+PS C:\Users\User\Desktop\Proyectos\devops-coderhouse\app> docker run --rm devops-pf-api:1.0.0 whoami
+node
