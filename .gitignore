@@ -147,3 +147,6 @@ vite.config.ts.timestamp-*
 
 # Turbo Repo
 .turbo
+
+# Los logs de evidencias deben versionarse
+!evidencias/**/*.log
