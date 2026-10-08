@@ -1,0 +1,3 @@
+﻿> kubectl get nodes
+NAME             STATUS   ROLES           AGE   VERSION
+docker-desktop   Ready    control-plane   23m   v1.36.1
