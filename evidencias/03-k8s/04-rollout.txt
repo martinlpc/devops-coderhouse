@@ -1,0 +1,2 @@
+> kubectl rollout status deployment/devops-pf-api -n devops-pf
+deployment "devops-pf-api" successfully rolled out

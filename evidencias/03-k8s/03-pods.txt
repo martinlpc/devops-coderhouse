@@ -1,0 +1,4 @@
+> kubectl get pods -n devops-pf -o wide
+NAME                          READY   STATUS    RESTARTS   AGE     IP         NODE             NOMINATED NODE   READINESS GATES
+devops-pf-api-dd7cd6d-p5rxs   1/1     Running   0          8m12s   10.1.0.6   docker-desktop   <none>           <none>
+devops-pf-api-dd7cd6d-z6wkp   1/1     Running   0          8m12s   10.1.0.7   docker-desktop   <none>           <none>

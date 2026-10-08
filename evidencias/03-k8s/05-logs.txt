@@ -1,0 +1,3 @@
+﻿> kubectl logs -n devops-pf -l app=devops-pf-api --prefix
+[pod/devops-pf-api-dd7cd6d-z6wkp/api] Escuchando en puerto 3000
+[pod/devops-pf-api-dd7cd6d-p5rxs/api] Escuchando en puerto 3000

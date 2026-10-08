@@ -1,0 +1,42 @@
+> kubectl describe deployment devops-pf-api -n devops-pf
+Name:                   devops-pf-api
+Namespace:              devops-pf
+CreationTimestamp:      Thu, 08 Oct 2026 12:06:22 -0300
+Labels:                 app=devops-pf-api
+Annotations:            deployment.kubernetes.io/revision: 1
+Selector:               app=devops-pf-api
+Replicas:               2 desired | 2 updated | 2 total | 2 available | 0 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  25% max unavailable, 25% max surge
+Pod Template:
+  Labels:  app=devops-pf-api
+  Containers:
+   api:
+    Image:      devops-pf-api:1.0.0
+    Port:       3000/TCP
+    Host Port:  0/TCP
+    Limits:
+      cpu:     200m
+      memory:  128Mi
+    Requests:
+      cpu:         50m
+      memory:      64Mi
+    Liveness:      http-get http://:3000/health delay=10s timeout=1s period=10s #success=1 #failure=3
+    Readiness:     http-get http://:3000/health delay=3s timeout=1s period=5s #success=1 #failure=3
+    Environment:   <none>
+    Mounts:        <none>
+  Volumes:         <none>
+  Node-Selectors:  <none>
+  Tolerations:     <none>
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      True    MinimumReplicasAvailable
+  Progressing    True    NewReplicaSetAvailable
+OldReplicaSets:  <none>
+NewReplicaSet:   devops-pf-api-dd7cd6d (2/2 replicas created)
+Events:
+  Type    Reason             Age   From                   Message
+  ----    ------             ----  ----                   -------
+  Normal  ScalingReplicaSet  11m   deployment-controller  Scaled up replica set devops-pf-api-dd7cd6d from 0 to 2
