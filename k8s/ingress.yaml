@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: devops-pf-api
+  namespace: devops-pf
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: devops-pf.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: devops-pf-api
+                port:
+                  number: 80
