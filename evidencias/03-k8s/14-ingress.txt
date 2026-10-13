@@ -1,0 +1,17 @@
+> kubectl describe ingress devops-pf-api -n devops-pf
+Name:             devops-pf-api
+Labels:           <none>
+Namespace:        devops-pf
+Address:          172.21.0.5
+Ingress Class:    nginx
+Default backend:  <default>
+Rules:
+  Host             Path  Backends
+  ----             ----  --------
+  devops-pf.local  
+                   /   devops-pf-api:80 (10.244.0.6:3000,10.244.0.5:3000)
+Annotations:       <none>
+Events:
+  Type    Reason  Age                From                      Message
+  ----    ------  ----               ----                      -------
+  Normal  Sync    20m (x2 over 20m)  nginx-ingress-controller  Scheduled for sync
