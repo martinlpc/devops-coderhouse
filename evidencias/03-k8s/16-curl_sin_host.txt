@@ -1,0 +1,14 @@
+> curl.exe -i -s http://localhost/health
+HTTP/1.1 404 Not Found
+Date: Wed, 14 Oct 2026 14:08:28 GMT
+Content-Type: text/html
+Content-Length: 146
+Connection: keep-alive
+
+<html>
+<head><title>404 Not Found</title></head>
+<body>
+<center><h1>404 Not Found</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
