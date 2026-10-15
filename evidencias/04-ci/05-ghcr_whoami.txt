@@ -1,0 +1,2 @@
+> docker exec pf-ghcr whoami
+node

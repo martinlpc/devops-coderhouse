@@ -1,0 +1,14 @@
+> docker pull ghcr.io/martinlpc/devops-coderhouse:sha-9500218
+sha-9500218: Pulling from martinlpc/devops-coderhouse
+d6a0559b75a5: Pulling fs layer
+6922887bb469: Pulling fs layer
+feefe3367659: Pulling fs layer
+d6a0559b75a5: Download complete
+feefe3367659: Download complete
+feefe3367659: Pull complete
+6922887bb469: Download complete
+d6a0559b75a5: Pull complete
+6922887bb469: Pull complete
+Digest: sha256:4eed833e05b287004dc162a3900643a834970e4eb22f2da0008e608ff1a95a8a
+Status: Downloaded newer image for ghcr.io/martinlpc/devops-coderhouse:sha-9500218
+ghcr.io/martinlpc/devops-coderhouse:sha-9500218
