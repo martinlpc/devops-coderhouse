@@ -1,0 +1,23 @@
+> kubectl describe hpa devops-pf-api -n devops-pf
+Name:                                                  devops-pf-api
+Namespace:                                             devops-pf
+Labels:                                                <none>
+Annotations:                                           <none>
+CreationTimestamp:                                     Fri, 16 Oct 2026 16:20:38 -0300
+Reference:                                             Deployment/devops-pf-api
+Metrics:                                               ( current / target )
+  resource cpu on pods  (as a percentage of request):  170% (85m) / 50%
+Min replicas:                                          1
+Max replicas:                                          3
+Deployment pods:                                       3 current / 3 desired
+Conditions:
+  Type            Status  Reason               Message
+  ----            ------  ------               -------
+  AbleToScale     True    ScaleDownStabilized  recent recommendations were higher than current one, applying the highest recent recommendation
+  ScalingActive   True    ValidMetricFound     the HPA was able to successfully calculate a replica count from cpu resource utilization (percentage of request)
+  ScalingLimited  True    TooManyReplicas      the desired replica count is more than the maximum replica count
+Events:
+  Type    Reason             Age   From                       Message
+  ----    ------             ----  ----                       -------
+  Normal  SuccessfulRescale  10m   horizontal-pod-autoscaler  New size: 1; reason: All metrics below target
+  Normal  SuccessfulRescale  5m9s  horizontal-pod-autoscaler  New size: 3; reason: cpu resource utilization (percentage of request) above target

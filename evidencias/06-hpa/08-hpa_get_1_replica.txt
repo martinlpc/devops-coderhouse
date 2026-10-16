@@ -1,0 +1,3 @@
+> kubectl get hpa -n devops-pf
+NAME            REFERENCE                  TARGETS        MINPODS   MAXPODS   REPLICAS   AGE
+devops-pf-api   Deployment/devops-pf-api   cpu: 18%/50%   1         3         1          9m31s

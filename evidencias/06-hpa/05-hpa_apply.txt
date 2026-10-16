@@ -1,0 +1,2 @@
+> kubectl apply -f k8s/hpa.yaml
+horizontalpodautoscaler.autoscaling/devops-pf-api created

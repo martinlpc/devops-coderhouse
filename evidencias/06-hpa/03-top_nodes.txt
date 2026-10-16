@@ -1,0 +1,3 @@
+> kubectl top nodes
+NAME                    CPU(cores)   CPU(%)   MEMORY(bytes)   MEMORY(%)   
+desktop-control-plane   269m         3%       875Mi           11%         

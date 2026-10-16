@@ -1,0 +1,6 @@
+> kubectl top pods -n devops-pf
+NAME                          CPU(cores)   MEMORY(bytes)   
+carga                         726m         4Mi             
+devops-pf-api-dd7cd6d-7zg95   85m          28Mi            
+devops-pf-api-dd7cd6d-ng58g   77m          29Mi            
+devops-pf-api-dd7cd6d-z8lws   91m          31Mi            
