@@ -8,3 +8,4 @@ Cada carpeta corresponde a un paso del proyecto e incluye un README con la tabla
 | 2    | [02-docker](02-docker/) | Imagen Docker multi-stage, usuario no root y tamaño reducido     |
 | 3    | [03-k8s](03-k8s/)       | Cluster Kubernetes local y despliegue de la aplicación           |
 | 4    | [04-ci](04-ci/)         | CI/CD Workflows para automatización                              |
+| 5    | [05-sast](05-sast/)     | Análisis de seguridad del código (SAST)                          |
