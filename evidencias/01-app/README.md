@@ -16,7 +16,6 @@ API mínima en Node.js + Express (código en [`app/src`](../../app/src)) con tre
 | 2   | La raíz responde                       | `curl.exe -i localhost:3000/`        | `200 OK` con JSON de mensaje y versión                                    | [get-root.txt](get-root.txt)       |
 | 3   | El health check responde               | `curl.exe -i localhost:3000/health`  | `200 OK` con `{"status":"ok"}`                                            | [get-health.txt](get-health.txt)   |
 | 4   | Se exponen métricas                    | `curl.exe -s localhost:3000/metrics` | Texto en formato Prometheus (`# HELP`, `# TYPE`, `process_*`, `nodejs_*`) | [get-metrics.txt](get-metrics.txt) |
-| 5   | Historial de commits al cerrar el paso | `git log --oneline`                  | Commits descriptivos                                                      | [git-log.txt](git-log.txt)         |
 
 ## Cómo reproducirlo
 
