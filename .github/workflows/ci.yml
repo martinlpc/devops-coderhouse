@@ -3,12 +3,14 @@ name: CI/CD Pipeline
 on:
     push:
         branches: ["main"]
-        # FinOps (pendiente): cada push a main construye y publica una imagen,
-        # incluso si solo cambian docs o evidencias. Una vez estabilizado el
-        # pipeline, agregar `paths-ignore: ["evidencias/**", "**.md"]` acá
-        # para no gastar minutos de runner ni almacenamiento en el registry.
+        paths-ignore:
+            - "evidencias/**"
+            - "**.md"
     pull_request:
         branches: ["main"]
+        paths-ignore:
+            - "evidencias/**"
+            - "**.md"
 
 permissions:
     contents: read
