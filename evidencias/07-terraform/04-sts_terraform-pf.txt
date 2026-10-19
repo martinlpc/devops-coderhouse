@@ -1,0 +1,7 @@
+> aws sts get-caller-identity --profile terraform-pf
+{
+    "UserId": "AIDAQXPZDK2NPOVSYZSJ6",
+    "Account": "************",
+    "Arn": "arn:aws:iam::************:user/terraform-pf"
+}
+

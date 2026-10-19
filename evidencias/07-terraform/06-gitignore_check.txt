@@ -1,0 +1,6 @@
+> git check-ignore -v terraform/terraform.tfstate terraform/.terraform/x terraform/prod.tfvars terraform/prod.tfvars.example
+.gitignore:156:*.tfstate	terraform/terraform.tfstate
+.gitignore:155:.terraform/	terraform/.terraform/x
+.gitignore:160:*.tfvars	terraform/prod.tfvars
+.gitignore:162:!*.tfvars.example	terraform/prod.tfvars.example
+

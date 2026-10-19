@@ -1,0 +1,10 @@
+> aws iam list-attached-user-policies --user-name terraform-pf
+{
+    "AttachedPolicies": [
+        {
+            "PolicyName": "AmazonEC2FullAccess",
+            "PolicyArn": "arn:aws:iam::aws:policy/AmazonEC2FullAccess"
+        }
+    ]
+}
+
