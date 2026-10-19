@@ -10,3 +10,8 @@ provider "aws" {
   }
 }
 
+module "network" {
+  source       = "./modules/network"
+  project_name = var.project_name
+  allowed_cidr = var.allowed_cidr
+}

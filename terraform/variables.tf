@@ -15,3 +15,8 @@ variable "project_name" {
   type        = string
   default     = "devops-pf"
 }
+
+variable "allowed_cidr" {
+  description = "IP autorizada para SSH y la API de Kubernetes, en formato CIDR (ej: 203.0.113.10/32)"
+  type        = string
+}
