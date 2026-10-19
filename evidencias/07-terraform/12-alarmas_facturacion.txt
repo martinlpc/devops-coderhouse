@@ -1,0 +1,20 @@
+> aws cloudwatch describe-alarms --region us-east-1 --query "MetricAlarms[].{Nombre:AlarmName,Umbral:Threshold,Estado:StateValue,Avisa:AlarmActions}"
+[
+    {
+        "Nombre": "Alerta Gasto Mayor a 5 USD",
+        "Umbral": 5.0,
+        "Estado": "OK",
+        "Avisa": [
+            "arn:aws:sns:us-east-1:************:Alerta-gasto-mayor-a-5-USD"
+        ]
+    },
+    {
+        "Nombre": "Alerta gasto mayor o igual a 20 USD",
+        "Umbral": 20.0,
+        "Estado": "OK",
+        "Avisa": [
+            "arn:aws:sns:us-east-1:************:Alerta-gasto-mayor-a-20-USD"
+        ]
+    }
+]
+
