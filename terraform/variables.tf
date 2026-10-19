@@ -20,3 +20,9 @@ variable "allowed_cidr" {
   description = "IP autorizada para SSH y la API de Kubernetes, en formato CIDR (ej: 203.0.113.10/32)"
   type        = string
 }
+
+variable "ssh_public_key_path" {
+  description = "Ruta a la clave pública SSH que se registra en AWS"
+  type        = string
+  default     = "~/.ssh/devops-pf.pub"
+}
