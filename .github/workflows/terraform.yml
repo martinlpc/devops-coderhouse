@@ -1,0 +1,46 @@
+name: Terraform
+
+on:
+    push:
+        branches: ["main"]
+        paths:
+            - "terraform/**"
+            - ".github/workflows/terraform.yml"
+    pull_request:
+        branches: ["main"]
+        paths:
+            - "terraform/**"
+            - ".github/workflows/terraform.yml"
+
+permissions:
+    contents: read
+
+jobs:
+    terraform:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+            id-token: write
+        defaults:
+            run:
+                working-directory: terraform/
+        env:
+            TF_VAR_allowed_cidr: "203.0.113.10/32"
+            TF_VAR_aws_profile: ""
+        steps:
+            - uses: actions/checkout@v7
+            - uses: hashicorp/setup-terraform@v4
+              with:
+                  terraform_version: 1.16.6
+            - run: terraform fmt -check -recursive
+            - run: terraform init -input=false
+            - run: terraform validate
+            - name: Generar clave SSH descartable
+              run: |
+                  mkdir -p ~/.ssh
+                  ssh-keygen -t ed25519 -N "" -f ~/.ssh/devops-pf
+            - uses: aws-actions/configure-aws-credentials@v6
+              with:
+                  role-to-arn: ${{secrets.AWS_ROLE_ARN}}
+                  aws-region: us-east-1
+            - run: terraform plan -input=false
