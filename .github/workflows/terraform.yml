@@ -41,6 +41,6 @@ jobs:
                   ssh-keygen -t ed25519 -N "" -f ~/.ssh/devops-pf
             - uses: aws-actions/configure-aws-credentials@v6
               with:
-                  role-to-arn: ${{secrets.AWS_ROLE_ARN}}
+                  role-to-assume: ${{secrets.AWS_ROLE_ARN}}
                   aws-region: us-east-1
             - run: terraform plan -input=false
