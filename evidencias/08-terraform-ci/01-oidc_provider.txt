@@ -1,0 +1,9 @@
+> aws iam list-open-id-connect-providers
+{
+    "OpenIDConnectProviderList": [
+        {
+            "Arn": "arn:aws:iam::************:oidc-provider/token.actions.githubusercontent.com"
+        }
+    ]
+}
+

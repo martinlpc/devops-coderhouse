@@ -1,0 +1,43 @@
+> aws cloudtrail lookup-events --region us-east-1 --lookup-attributes AttributeKey=EventName,AttributeValue=AssumeRoleWithWebIdentity --max-results 10
+
+eventTime   : 20/10/2026 19:46:48
+errorCode   : 
+principalId : arn:aws:iam::************:oidc-provider/token.actions.githubusercontent.com:sts.amazonaws.com:repo:martinlpc@60750406/devops-coderhouse@1407525414:ref:refs/heads/main
+
+eventTime   : 20/10/2026 19:35:01
+errorCode   : AccessDenied
+principalId : arn:aws:iam::************:oidc-provider/token.actions.githubusercontent.com:sts.amazonaws.com:repo:martinlpc@60750406/devops-coderhouse@1407525414:ref:refs/heads/main
+
+eventTime   : 20/10/2026 19:34:58
+errorCode   : AccessDenied
+principalId : arn:aws:iam::************:oidc-provider/token.actions.githubusercontent.com:sts.amazonaws.com:repo:martinlpc@60750406/devops-coderhouse@1407525414:ref:refs/heads/main
+
+eventTime   : 20/10/2026 19:34:48
+errorCode   : AccessDenied
+principalId : arn:aws:iam::************:oidc-provider/token.actions.githubusercontent.com:sts.amazonaws.com:repo:martinlpc@60750406/devops-coderhouse@1407525414:ref:refs/heads/main
+
+eventTime   : 20/10/2026 19:34:39
+errorCode   : AccessDenied
+principalId : arn:aws:iam::************:oidc-provider/token.actions.githubusercontent.com:sts.amazonaws.com:repo:martinlpc@60750406/devops-coderhouse@1407525414:ref:refs/heads/main
+
+eventTime   : 20/10/2026 19:34:36
+errorCode   : AccessDenied
+principalId : arn:aws:iam::************:oidc-provider/token.actions.githubusercontent.com:sts.amazonaws.com:repo:martinlpc@60750406/devops-coderhouse@1407525414:ref:refs/heads/main
+
+eventTime   : 20/10/2026 19:34:33
+errorCode   : AccessDenied
+principalId : arn:aws:iam::************:oidc-provider/token.actions.githubusercontent.com:sts.amazonaws.com:repo:martinlpc@60750406/devops-coderhouse@1407525414:ref:refs/heads/main
+
+eventTime   : 20/10/2026 19:34:32
+errorCode   : AccessDenied
+principalId : arn:aws:iam::************:oidc-provider/token.actions.githubusercontent.com:sts.amazonaws.com:repo:martinlpc@60750406/devops-coderhouse@1407525414:ref:refs/heads/main
+
+eventTime   : 20/10/2026 19:34:32
+errorCode   : AccessDenied
+principalId : arn:aws:iam::************:oidc-provider/token.actions.githubusercontent.com:sts.amazonaws.com:repo:martinlpc@60750406/devops-coderhouse@1407525414:ref:refs/heads/main
+
+eventTime   : 20/10/2026 19:34:31
+errorCode   : AccessDenied
+principalId : arn:aws:iam::************:oidc-provider/token.actions.githubusercontent.com:sts.amazonaws.com:repo:martinlpc@60750406/devops-coderhouse@1407525414:ref:refs/heads/main
+
+

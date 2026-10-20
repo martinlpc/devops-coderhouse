@@ -1,0 +1,10 @@
+> aws iam list-attached-role-policies --role-name github-actions-terraform-plan
+{
+    "AttachedPolicies": [
+        {
+            "PolicyName": "AmazonEC2ReadOnlyAccess",
+            "PolicyArn": "arn:aws:iam::aws:policy/AmazonEC2ReadOnlyAccess"
+        }
+    ]
+}
+

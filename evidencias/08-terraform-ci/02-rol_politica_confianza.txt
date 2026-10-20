@@ -1,0 +1,27 @@
+> aws iam get-role --role-name github-actions-terraform-plan --query Role.AssumeRolePolicyDocument
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "Federated": "arn:aws:iam::************:oidc-provider/token.actions.githubusercontent.com"
+            },
+            "Action": "sts:AssumeRoleWithWebIdentity",
+            "Condition": {
+                "StringEquals": {
+                    "token.actions.githubusercontent.com:aud": "sts.amazonaws.com"
+                },
+                "StringLike": {
+                    "token.actions.githubusercontent.com:sub": [
+                        "repo:martinlpc@60750406/devops-coderhouse@1407525414:ref:refs/heads/main",
+                        "repo:martinlpc@60750406/devops-coderhouse@1407525414:pull_request",
+                        "repo:martinlpc/devops-coderhouse:ref:refs/heads/main",
+                        "repo:martinlpc/devops-coderhouse:pull_request"
+                    ]
+                }
+            }
+        }
+    ]
+}
+
