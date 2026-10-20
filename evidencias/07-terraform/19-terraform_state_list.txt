@@ -1,0 +1,15 @@
+> terraform -chdir=terraform state list
+module.compute.data.aws_ami.ubuntu
+module.compute.aws_instance.main
+module.compute.aws_key_pair.main
+module.network.aws_internet_gateway.main
+module.network.aws_route_table.public
+module.network.aws_route_table_association.public
+module.network.aws_security_group.main
+module.network.aws_subnet.public
+module.network.aws_vpc.main
+module.network.aws_vpc_security_group_egress_rule.all
+module.network.aws_vpc_security_group_ingress_rule.http
+module.network.aws_vpc_security_group_ingress_rule.k8s_api
+module.network.aws_vpc_security_group_ingress_rule.ssh
+

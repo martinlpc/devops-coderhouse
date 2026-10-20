@@ -1,0 +1,6 @@
+> kubectl top nodes; kubectl top pods -n devops-pf
+NAME            CPU(cores)   CPU(%)   MEMORY(bytes)   MEMORY(%)   
+ip-10-0-1-222   91m          4%       1158Mi          60%         
+NAME                             CPU(cores)   MEMORY(bytes)   
+devops-pf-api-869dfd965b-r2lj5   5m           21Mi            
+

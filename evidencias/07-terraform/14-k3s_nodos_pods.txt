@@ -1,0 +1,13 @@
+Warning: Permanently added 'x.x.x.x' (ED25519) to the list of known hosts.
+status: done
+NAME            STATUS   ROLES           AGE     VERSION        INTERNAL-IP   EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION           CONTAINER-RUNTIME
+ip-10-0-1-222   Ready    control-plane   2m59s   v1.36.5+k3s1   10.0.1.222    <none>        Ubuntu 24.04.5 LTS   7.0.0-1014-aws (amd64)   containerd://2.3.4-k3s1.36
+NAMESPACE     NAME                                      READY   STATUS      RESTARTS        AGE
+kube-system   coredns-7cfb7bc9c7-lwjx7                  1/1     Running     0               2m53s
+kube-system   helm-install-traefik-8wrph                0/1     Completed   2 (2m42s ago)   2m53s
+kube-system   helm-install-traefik-crd-rgtdt            0/1     Completed   0               2m53s
+kube-system   local-path-provisioner-77b9867795-wbmgn   1/1     Running     0               2m53s
+kube-system   metrics-server-6dc596dfb8-sxmk9           1/1     Running     0               2m53s
+kube-system   svclb-traefik-14d97a44-t5mtw              2/2     Running     0               2m30s
+kube-system   traefik-7c8544f77-n24bq                   1/1     Running     0               2m30s
+

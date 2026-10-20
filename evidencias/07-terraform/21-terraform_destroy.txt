@@ -1,0 +1,50 @@
+module.network.aws_route_table_association.public: Destroying... [id=rtbassoc-01e8dabf17f84bdbd]
+module.network.aws_vpc_security_group_egress_rule.all: Destroying... [id=sgr-0fa728fd39486d43a]
+module.network.aws_vpc_security_group_ingress_rule.http: Destroying... [id=sgr-040a7ea6bf2025aad]
+module.network.aws_vpc_security_group_ingress_rule.ssh: Destroying... [id=sgr-04b1a605f659fd77d]
+module.network.aws_vpc_security_group_ingress_rule.k8s_api: Destroying... [id=sgr-0fdb59d46bd87c9b7]
+module.compute.aws_instance.main: Destroying... [id=i-098b32d35aa84e2eb]
+module.network.aws_vpc_security_group_egress_rule.all: Destruction complete after 10s
+module.network.aws_vpc_security_group_ingress_rule.ssh: Destruction complete after 10s
+module.network.aws_vpc_security_group_ingress_rule.k8s_api: Destruction complete after 10s
+module.network.aws_vpc_security_group_ingress_rule.http: Destruction complete after 10s
+module.network.aws_route_table_association.public: Still destroying... [id=rtbassoc-01e8dabf17f84bdbd, 00m10s elapsed]
+module.compute.aws_instance.main: Still destroying... [id=i-098b32d35aa84e2eb, 00m10s elapsed]
+module.network.aws_route_table_association.public: Destruction complete after 11s
+module.network.aws_route_table.public: Destroying... [id=rtb-074ca766229235e41]
+module.compute.aws_instance.main: Still destroying... [id=i-098b32d35aa84e2eb, 00m20s elapsed]
+module.network.aws_route_table.public: Still destroying... [id=rtb-074ca766229235e41, 00m10s elapsed]
+module.network.aws_route_table.public: Destruction complete after 11s
+module.network.aws_internet_gateway.main: Destroying... [id=igw-0cc88daf819be732d]
+module.compute.aws_instance.main: Still destroying... [id=i-098b32d35aa84e2eb, 00m30s elapsed]
+module.network.aws_internet_gateway.main: Still destroying... [id=igw-0cc88daf819be732d, 00m10s elapsed]
+module.compute.aws_instance.main: Still destroying... [id=i-098b32d35aa84e2eb, 00m40s elapsed]
+module.network.aws_internet_gateway.main: Still destroying... [id=igw-0cc88daf819be732d, 00m20s elapsed]
+module.compute.aws_instance.main: Still destroying... [id=i-098b32d35aa84e2eb, 00m50s elapsed]
+module.network.aws_internet_gateway.main: Still destroying... [id=igw-0cc88daf819be732d, 00m30s elapsed]
+module.compute.aws_instance.main: Still destroying... [id=i-098b32d35aa84e2eb, 01m00s elapsed]
+module.network.aws_internet_gateway.main: Still destroying... [id=igw-0cc88daf819be732d, 00m40s elapsed]
+module.compute.aws_instance.main: Still destroying... [id=i-098b32d35aa84e2eb, 01m10s elapsed]
+module.network.aws_internet_gateway.main: Still destroying... [id=igw-0cc88daf819be732d, 00m50s elapsed]
+module.compute.aws_instance.main: Still destroying... [id=i-098b32d35aa84e2eb, 01m20s elapsed]
+module.network.aws_internet_gateway.main: Still destroying... [id=igw-0cc88daf819be732d, 01m00s elapsed]
+module.compute.aws_instance.main: Still destroying... [id=i-098b32d35aa84e2eb, 01m30s elapsed]
+module.network.aws_internet_gateway.main: Still destroying... [id=igw-0cc88daf819be732d, 01m10s elapsed]
+module.compute.aws_instance.main: Still destroying... [id=i-098b32d35aa84e2eb, 01m40s elapsed]
+module.network.aws_internet_gateway.main: Still destroying... [id=igw-0cc88daf819be732d, 01m20s elapsed]
+module.compute.aws_instance.main: Still destroying... [id=i-098b32d35aa84e2eb, 01m50s elapsed]
+module.network.aws_internet_gateway.main: Still destroying... [id=igw-0cc88daf819be732d, 01m30s elapsed]
+module.network.aws_internet_gateway.main: Destruction complete after 1m30s
+module.compute.aws_instance.main: Still destroying... [id=i-098b32d35aa84e2eb, 02m00s elapsed]
+module.compute.aws_instance.main: Destruction complete after 2m1s
+module.network.aws_security_group.main: Destroying... [id=sg-007dd7158f84fb14b]
+module.compute.aws_key_pair.main: Destroying... [id=devops-pf-key]
+module.network.aws_subnet.public: Destroying... [id=subnet-061c7c0bdcfb804fe]
+module.compute.aws_key_pair.main: Destruction complete after 1s
+module.network.aws_subnet.public: Destruction complete after 1s
+module.network.aws_security_group.main: Destruction complete after 1s
+module.network.aws_vpc.main: Destroying... [id=vpc-065b4d56a289a762a]
+module.network.aws_vpc.main: Destruction complete after 2s
+
+Apply complete! Resources: 0 added, 0 changed, 12 destroyed.
+

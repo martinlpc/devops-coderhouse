@@ -1,0 +1,20 @@
+> aws ec2 describe-instances --profile terraform-pf --region us-east-1 --filters Name=tag:Project,Values=devops-pf --query "Reservations[].Instances[].State.Name"
+[
+    "terminated"
+]
+
+> aws ec2 describe-vpcs --profile terraform-pf --region us-east-1 --filters Name=tag:Project,Values=devops-pf --query "Vpcs[].VpcId"
+[]
+
+> aws ec2 describe-volumes --profile terraform-pf --region us-east-1 --query "Volumes[].VolumeId"
+[]
+
+> aws ec2 describe-addresses --profile terraform-pf --region us-east-1 --query "Addresses[].PublicIp"
+[]
+
+> aws ec2 describe-nat-gateways --profile terraform-pf --region us-east-1 --filter Name=state,Values=pending,available --query "NatGateways[].NatGatewayId"
+[]
+
+> aws ec2 describe-key-pairs --profile terraform-pf --region us-east-1 --query "KeyPairs[].KeyName"
+[]
+

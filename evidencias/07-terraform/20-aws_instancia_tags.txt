@@ -1,0 +1,23 @@
+> aws ec2 describe-instances --profile terraform-pf --filters Name=tag:Project,Values=devops-pf --query "Reservations[].Instances[].{Id:InstanceId,Tipo:InstanceType,Estado:State.Name,Tags:Tags}"
+[
+    {
+        "Id": "i-098b32d35aa84e2eb",
+        "Tipo": "t3.small",
+        "Estado": "running",
+        "Tags": [
+            {
+                "Key": "Name",
+                "Value": "devops-pf-k3s"
+            },
+            {
+                "Key": "Project",
+                "Value": "devops-pf"
+            },
+            {
+                "Key": "ManagedBy",
+                "Value": "terraform"
+            }
+        ]
+    }
+]
+
