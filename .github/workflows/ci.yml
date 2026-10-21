@@ -41,6 +41,8 @@ jobs:
         permissions:
             contents: read
             packages: write
+        outputs:
+            image_tag: ${{steps.meta.outputs.version}}
         env:
             REGISTRY: ghcr.io
             IMAGE_NAME: ${{github.repository}}
@@ -62,3 +64,38 @@ jobs:
                   push: true
                   tags: ${{steps.meta.outputs.tags}}
                   labels: ${{steps.meta.outputs.labels}}
+    deploy:
+        needs: build-and-push
+        if: github.event_name == 'push'
+        runs-on: ubuntu-latest
+        env:
+            IMAGE: ghcr.io/${{github.repository}}:${{needs.build-and-push.outputs.image_tag}}
+        steps:
+            - uses: actions/checkout@v7
+
+            - name: Crear cluster kind
+              uses: helm/kind-action@v1
+              with:
+                  cluster_name: devops-pf
+                  config: .github/kind/cluster.yaml
+
+            - name: Instalar ingress-nginx
+              run: |
+                  kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.15.1/deploy/static/provider/kind/deploy.yaml
+                  kubectl wait --namespace ingress-nginx --for=condition=ready pod --selector=app.kubernetes.io/component=controller --timeout=180s
+
+            - name: Apuntar deployment a la imagen publicada
+              run: |
+                  sed -i "s|image: devops-pf-api:1.0.0|image: ${IMAGE}|" k8s/deployment.yaml
+                  grep -n "image:" k8s/deployment.yaml
+
+            - name: Desplegar manifiestos
+              run: |
+                  kubectl apply -f k8s/namespace.yaml
+                  kubectl apply -f k8s/
+                  kubectl rollout status deployment/devops-pf-api -n devops-pf --timeout=180s
+
+            - name: Verificar despliegue
+              run: |
+                  kubectl get pods,svc,ingress,hpa -n devops-pf
+                  curl -fsS -H "Host: devops-pf.local" http://localhost/health
