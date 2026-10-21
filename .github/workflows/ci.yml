@@ -159,7 +159,12 @@ jobs:
           echo "ZAP termino con codigo $CODE"
           echo "--- Resumen del reporte"
           cat zap/zap-report.md || true
-
+          MEDIO_O_ALTO=$(jq '[.site[].alerts[] | select((.riskcode|tonumber) >= 2)] | length' zap/zap-report.json)
+          echo "Alertas de riesgo medio o alto: $MEDIO_O_ALTO"
+          if [ "$MEDIO_O_ALTO" -gt 0 ]; then
+            echo "El pipeline falla: hay alertas de riesgo medio o alto"
+            exit 1
+          fi
       - name: Guardar el reporte de ZAP
         if: always()
         uses: actions/upload-artifact@v7
