@@ -1,0 +1,6 @@
+> sed -i "s|image: devops-pf-api:1.0.0|image: ${IMAGE}|" k8s/deployment.yaml
+  grep -n "image:" k8s/deployment.yaml
+  shell: /usr/bin/bash -e {0}
+  env:
+    IMAGE: ghcr.io/martinlpc/devops-coderhouse:sha-0940107
+19:          image: ghcr.io/martinlpc/devops-coderhouse:sha-0940107
