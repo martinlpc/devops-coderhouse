@@ -1,145 +1,169 @@
 name: CI/CD Pipeline
 
 on:
-    push:
-        branches: ["main"]
-        paths-ignore:
-            - "evidencias/**"
-            - "**.md"
-    pull_request:
-        branches: ["main"]
-        paths-ignore:
-            - "evidencias/**"
-            - "**.md"
+  push:
+    branches: ["main"]
+    paths-ignore:
+      - "evidencias/**"
+      - "**.md"
+  pull_request:
+    branches: ["main"]
+    paths-ignore:
+      - "evidencias/**"
+      - "**.md"
 
 permissions:
-    contents: read
+  contents: read
 
 jobs:
-    test:
-        runs-on: ubuntu-latest
-        defaults:
-            run:
-                working-directory: app/
-        steps:
-            - uses: actions/checkout@v7
-            - uses: pnpm/action-setup@v6
-              with:
-                  package_json_file: app/package.json
-            - uses: actions/setup-node@v7
-              with:
-                  node-version: 24
-                  cache: pnpm
-                  cache-dependency-path: app/pnpm-lock.yaml
-            - run: pnpm install --frozen-lockfile
-            - run: pnpm test
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: app/
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+        with:
+          package_json_file: app/package.json
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+          cache-dependency-path: app/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm test
 
-    build-and-push:
-        needs: test
-        if: github.event_name == 'push'
-        runs-on: ubuntu-latest
-        permissions:
-            contents: read
-            packages: write
-        outputs:
-            image_tag: ${{steps.meta.outputs.version}}
-        env:
-            REGISTRY: ghcr.io
-            IMAGE_NAME: ${{github.repository}}
-        steps:
-            - uses: actions/checkout@v7
-            - uses: docker/login-action@v4
-              with:
-                  registry: ${{env.REGISTRY}}
-                  username: ${{github.actor}}
-                  password: ${{secrets.GITHUB_TOKEN}}
-            - id: meta
-              uses: docker/metadata-action@v6
-              with:
-                  images: ${{env.REGISTRY}}/${{env.IMAGE_NAME}}
-                  tags: type=sha
-            - uses: docker/build-push-action@v7
-              with:
-                  context: ./app
-                  push: true
-                  tags: ${{steps.meta.outputs.tags}}
-                  labels: ${{steps.meta.outputs.labels}}
-    deploy:
-        needs: build-and-push
-        if: github.event_name == 'push'
-        runs-on: ubuntu-latest
-        env:
-            IMAGE: ghcr.io/${{github.repository}}:${{needs.build-and-push.outputs.image_tag}}
-        steps:
-            - uses: actions/checkout@v7
+  build-and-push:
+    needs: test
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+      image_tag: ${{steps.meta.outputs.version}}
+    env:
+      REGISTRY: ghcr.io
+      IMAGE_NAME: ${{github.repository}}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: docker/login-action@v4
+        with:
+          registry: ${{env.REGISTRY}}
+          username: ${{github.actor}}
+          password: ${{secrets.GITHUB_TOKEN}}
+      - id: meta
+        uses: docker/metadata-action@v6
+        with:
+          images: ${{env.REGISTRY}}/${{env.IMAGE_NAME}}
+          tags: type=sha
+      - uses: docker/build-push-action@v7
+        with:
+          context: ./app
+          push: true
+          tags: ${{steps.meta.outputs.tags}}
+          labels: ${{steps.meta.outputs.labels}}
+  deploy:
+    needs: build-and-push
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    env:
+      IMAGE: ghcr.io/${{github.repository}}:${{needs.build-and-push.outputs.image_tag}}
+    steps:
+      - uses: actions/checkout@v7
 
-            - name: Crear cluster kind
-              uses: helm/kind-action@v1
-              with:
-                  cluster_name: devops-pf
-                  config: .github/kind/cluster.yaml
+      - name: Crear cluster kind
+        uses: helm/kind-action@v1
+        with:
+          cluster_name: devops-pf
+          config: .github/kind/cluster.yaml
 
-            - name: Instalar ingress-nginx
-              run: |
-                  kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.15.1/deploy/static/provider/kind/deploy.yaml
-                  kubectl wait --namespace ingress-nginx --for=condition=ready pod --selector=app.kubernetes.io/component=controller --timeout=180s
-            - name: Instalar metrics-server
-              run: |
-                  kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.9.0/components.yaml
-                  kubectl patch deployment metrics-server -n kube-system --type=json -p='[{"op":"add","path":"/spec/template/spec/containers/0/args/-","value":"--kubelet-insecure-tls"}]'
-                  kubectl rollout status deployment/metrics-server -n kube-system --timeout=180s
-            - name: Apuntar deployment a la imagen publicada
-              run: |
-                  sed -i "s|image: devops-pf-api:1.0.0|image: ${IMAGE}|" k8s/deployment.yaml
-                  grep -n "image:" k8s/deployment.yaml
+      - name: Instalar ingress-nginx
+        run: |
+          kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.15.1/deploy/static/provider/kind/deploy.yaml
+          kubectl wait --namespace ingress-nginx --for=condition=ready pod --selector=app.kubernetes.io/component=controller --timeout=180s
+      - name: Instalar metrics-server
+        run: |
+          kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.9.0/components.yaml
+          kubectl patch deployment metrics-server -n kube-system --type=json -p='[{"op":"add","path":"/spec/template/spec/containers/0/args/-","value":"--kubelet-insecure-tls"}]'
+          kubectl rollout status deployment/metrics-server -n kube-system --timeout=180s
+      - name: Apuntar deployment a la imagen publicada
+        run: |
+          sed -i "s|image: devops-pf-api:1.0.0|image: ${IMAGE}|" k8s/deployment.yaml
+          grep -n "image:" k8s/deployment.yaml
 
-            - name: Desplegar manifiestos
-              run: |
-                  kubectl apply -f k8s/namespace.yaml
-                  for i in $(seq 1 15); do
-                    if kubectl apply -f k8s/; then
-                      echo "Manifiestos aplicados en el intento $i"
-                      break
-                    fi
-                    if [ "$i" = "15" ]; then
-                      echo "No se pudieron aplicar los manifiestos tras 60s"
-                      kubectl get pods -n ingress-nginx
-                      kubectl logs -n ingress-nginx -l app.kubernetes.io/component=controller --tail=50
-                      exit 1
-                    fi
-                    echo "Reintentando en 4s (el webhook de admision todavia no atiende)"
-                    sleep 4
-                  done
-                  kubectl rollout status deployment/devops-pf-api -n devops-pf --timeout=180s
+      - name: Desplegar manifiestos
+        run: |
+          kubectl apply -f k8s/namespace.yaml
+          for i in $(seq 1 15); do
+            if kubectl apply -f k8s/; then
+              echo "Manifiestos aplicados en el intento $i"
+              break
+            fi
+            if [ "$i" = "15" ]; then
+              echo "No se pudieron aplicar los manifiestos tras 60s"
+              kubectl get pods -n ingress-nginx
+              kubectl logs -n ingress-nginx -l app.kubernetes.io/component=controller --tail=50
+              exit 1
+            fi
+            echo "Reintentando en 4s (el webhook de admision todavia no atiende)"
+            sleep 4
+          done
+          kubectl rollout status deployment/devops-pf-api -n devops-pf --timeout=180s
 
-            - name: Verificar despliegue
-              run: |
-                  kubectl get pods,svc,ingress,hpa -n devops-pf
-                  kubectl get endpointslices -n devops-pf
+      - name: Verificar despliegue
+        run: |
+          kubectl get pods,svc,ingress,hpa -n devops-pf
+          kubectl get endpointslices -n devops-pf
 
-                  for i in $(seq 1 30); do
-                    if curl -fsS -H "Host: devops-pf.local" http://localhost/health; then
-                      echo ""
-                      echo "La app respondio 200 en el intento $i"
-                      break
-                    fi
-                    if [ "$i" = "30" ]; then
-                      echo "La app no respondio 200 despues de 60s"
-                      kubectl describe ingress devops-pf-api -n devops-pf
-                      kubectl logs -n ingress-nginx -l app.kubernetes.io/component=controller --tail=50
-                      exit 1
-                    fi
-                    sleep 2
-                  done
+          for i in $(seq 1 30); do
+            if curl -fsS -H "Host: devops-pf.local" http://localhost/health; then
+              echo ""
+              echo "La app respondio 200 en el intento $i"
+              break
+            fi
+            if [ "$i" = "30" ]; then
+              echo "La app no respondio 200 despues de 60s"
+              kubectl describe ingress devops-pf-api -n devops-pf
+              kubectl logs -n ingress-nginx -l app.kubernetes.io/component=controller --tail=50
+              exit 1
+            fi
+            sleep 2
+          done
 
-                  for i in $(seq 1 30); do
-                    CPU=$(kubectl get hpa devops-pf-api -n devops-pf -o jsonpath='{.status.currentMetrics[0].resource.current.averageUtilization}')
-                    if [ -n "$CPU" ]; then
-                      echo "El HPA ya mide CPU: ${CPU}%"
-                      break
-                    fi
-                    sleep 3
-                  done
+          for i in $(seq 1 30); do
+            CPU=$(kubectl get hpa devops-pf-api -n devops-pf -o jsonpath='{.status.currentMetrics[0].resource.current.averageUtilization}')
+            if [ -n "$CPU" ]; then
+              echo "El HPA ya mide CPU: ${CPU}%"
+              break
+            fi
+            sleep 3
+          done
 
-                  kubectl top pods -n devops-pf
-                  kubectl get hpa -n devops-pf
+          kubectl top pods -n devops-pf
+          kubectl get hpa -n devops-pf
+                - name: DAST con OWASP ZAP
+      - name: DAST con OWASP ZAP
+        run: |
+          mkdir -p zap && chmod 777 zap
+          set +e
+          docker run --rm \
+            --network host \
+            --add-host devops-pf.local:127.0.0.1 \
+            -v "$PWD/zap:/zap/wrk:rw" \
+            ghcr.io/zaproxy/zaproxy:stable \
+            zap-baseline.py -t http://devops-pf.local \
+              -r zap-report.html -w zap-report.md -J zap-report.json
+          CODE=$?
+          set -e
+          echo "ZAP termino con codigo $CODE"
+          echo "--- Resumen del reporte"
+          cat zap/zap-report.md || true
+
+      - name: Guardar el reporte de ZAP
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: zap-report
+          path: zap/
