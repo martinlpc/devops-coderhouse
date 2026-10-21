@@ -98,4 +98,16 @@ jobs:
             - name: Verificar despliegue
               run: |
                   kubectl get pods,svc,ingress,hpa -n devops-pf
-                  curl -fsS -H "Host: devops-pf.local" http://localhost/health
+                  kubectl get endpointslices -n devops-pf
+                  for i in $(seq 1 30); do
+                    if curl -fsS -H "Host: devops-pf.local" http://localhost/health; then
+                      echo ""
+                      echo "La app respondio 200 en el intento $i"
+                      exit 0
+                    fi
+                    sleep 2
+                  done
+                  echo "La app no respondio 200 despues de 60s"
+                  kubectl describe ingress devops-pf-api -n devops-pf
+                  kubectl logs -n ingress-nginx -l app.kubernetes.io/component=controller --tail=50
+                  exit 1
