@@ -143,7 +143,6 @@ jobs:
 
           kubectl top pods -n devops-pf
           kubectl get hpa -n devops-pf
-                - name: DAST con OWASP ZAP
       - name: DAST con OWASP ZAP
         run: |
           mkdir -p zap && chmod 777 zap
