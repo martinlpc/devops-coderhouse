@@ -1,4 +1,4 @@
-﻿HTTP/1.1 200 OK
+HTTP/1.1 200 OK
 X-Powered-By: Express
 Content-Type: text/plain; charset=utf-8; version=0.0.4
 Content-Length: 8757
