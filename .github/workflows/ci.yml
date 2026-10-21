@@ -92,7 +92,20 @@ jobs:
             - name: Desplegar manifiestos
               run: |
                   kubectl apply -f k8s/namespace.yaml
-                  kubectl apply -f k8s/
+                  for i in $(seq 1 15); do
+                    if kubectl apply -f k8s/; then
+                      echo "Manifiestos aplicados en el intento $i"
+                      break
+                    fi
+                    if [ "$i" = "15" ]; then
+                      echo "No se pudieron aplicar los manifiestos tras 60s"
+                      kubectl get pods -n ingress-nginx
+                      kubectl logs -n ingress-nginx -l app.kubernetes.io/component=controller --tail=50
+                      exit 1
+                    fi
+                    echo "Reintentando en 4s (el webhook de admision todavia no atiende)"
+                    sleep 4
+                  done
                   kubectl rollout status deployment/devops-pf-api -n devops-pf --timeout=180s
 
             - name: Verificar despliegue
