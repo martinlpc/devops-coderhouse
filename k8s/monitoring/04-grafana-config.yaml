@@ -1,0 +1,118 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-datasources
+  namespace: monitoring
+data:
+  prometheus.yaml: |
+    apiVersion: 1
+    datasources:
+      - name: Prometheus
+        type: prometheus
+        uid: prometheus
+        access: proxy
+        url: http://prometheus.monitoring.svc.cluster.local:9090
+        isDefault: true
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-provider
+  namespace: monitoring
+data:
+  dashboards.yaml: |
+    apiVersion: 1
+    providers:
+      - name: default
+        orgId: 1
+        type: file
+        disableDeletion: false
+        updateIntervalSeconds: 30
+        options:
+          path: /var/lib/grafana/dashboards
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-api
+  namespace: monitoring
+data:
+  devops-pf-api.json: |
+    {
+      "uid": "devops-pf-api",
+      "title": "DevOps PF - API Node.js",
+      "tags": ["devops-pf"],
+      "timezone": "browser",
+      "schemaVersion": 39,
+      "version": 1,
+      "refresh": "10s",
+      "time": { "from": "now-15m", "to": "now" },
+      "panels": [
+        {
+          "type": "stat",
+          "title": "Replicas scrapeadas",
+          "id": 1,
+          "gridPos": { "h": 4, "w": 12, "x": 0, "y": 0 },
+          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "fieldConfig": { "defaults": { "unit": "short", "decimals": 0, "thresholds": { "mode": "absolute", "steps": [ { "color": "green", "value": null } ] } }, "overrides": [] },
+          "targets": [
+            { "refId": "A", "expr": "sum(up{job=\"devops-pf-api\"})", "legendFormat": "pods" }
+          ]
+        },
+        {
+          "type": "stat",
+          "title": "Uptime del proceso",
+          "id": 2,
+          "gridPos": { "h": 4, "w": 12, "x": 12, "y": 0 },
+          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "fieldConfig": { "defaults": { "unit": "s", "decimals": 0, "thresholds": { "mode": "absolute", "steps": [ { "color": "green", "value": null } ] } }, "overrides": [] },
+          "targets": [
+            { "refId": "A", "expr": "max(time() - process_start_time_seconds{job=\"devops-pf-api\"})", "legendFormat": "uptime" }
+          ]
+        },
+        {
+          "type": "timeseries",
+          "title": "CPU por pod (cores)",
+          "id": 3,
+          "gridPos": { "h": 8, "w": 12, "x": 0, "y": 4 },
+          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "fieldConfig": { "defaults": { "unit": "short", "decimals": 4, "custom": { "lineWidth": 1, "fillOpacity": 10 } }, "overrides": [] },
+          "targets": [
+            { "refId": "A", "expr": "rate(process_cpu_seconds_total{job=\"devops-pf-api\"}[1m])", "legendFormat": "{{pod}}" }
+          ]
+        },
+        {
+          "type": "timeseries",
+          "title": "Memoria RSS por pod",
+          "id": 4,
+          "gridPos": { "h": 8, "w": 12, "x": 12, "y": 4 },
+          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "fieldConfig": { "defaults": { "unit": "bytes", "custom": { "lineWidth": 1, "fillOpacity": 10 } }, "overrides": [] },
+          "targets": [
+            { "refId": "A", "expr": "process_resident_memory_bytes{job=\"devops-pf-api\"}", "legendFormat": "{{pod}}" }
+          ]
+        },
+        {
+          "type": "timeseries",
+          "title": "Heap usado por pod",
+          "id": 5,
+          "gridPos": { "h": 8, "w": 12, "x": 0, "y": 12 },
+          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "fieldConfig": { "defaults": { "unit": "bytes", "custom": { "lineWidth": 1, "fillOpacity": 10 } }, "overrides": [] },
+          "targets": [
+            { "refId": "A", "expr": "nodejs_heap_size_used_bytes{job=\"devops-pf-api\"}", "legendFormat": "{{pod}}" }
+          ]
+        },
+        {
+          "type": "timeseries",
+          "title": "Event loop lag p99",
+          "id": 6,
+          "gridPos": { "h": 8, "w": 12, "x": 12, "y": 12 },
+          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "fieldConfig": { "defaults": { "unit": "s", "decimals": 4, "custom": { "lineWidth": 1, "fillOpacity": 10 } }, "overrides": [] },
+          "targets": [
+            { "refId": "A", "expr": "nodejs_eventloop_lag_p99_seconds{job=\"devops-pf-api\"}", "legendFormat": "{{pod}}" }
+          ]
+        }
+      ]
+    }

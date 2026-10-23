@@ -1,0 +1,80 @@
+> muestreo de kubectl get hpa cada 5s durante la carga
+NAME            REFERENCE                  TARGETS        MINPODS   MAXPODS   REPLICAS   AGE
+devops-pf-api   Deployment/devops-pf-api   cpu: 21%/50%   1     3     2     79m
+devops-pf-api   Deployment/devops-pf-api   cpu: 21%/50%   1     3     2     79m
+devops-pf-api   Deployment/devops-pf-api   cpu: 21%/50%   1     3     2     79m
+devops-pf-api   Deployment/devops-pf-api   cpu: 21%/50%   1     3     2     79m
+devops-pf-api   Deployment/devops-pf-api   cpu: 21%/50%   1     3     2     80m
+devops-pf-api   Deployment/devops-pf-api   cpu: 69%/50%   1     3     2     80m
+devops-pf-api   Deployment/devops-pf-api   cpu: 69%/50%   1     3     2     80m
+devops-pf-api   Deployment/devops-pf-api   cpu: 69%/50%   1     3     2     80m
+devops-pf-api   Deployment/devops-pf-api   cpu: 69%/50%   1     3     2     80m
+devops-pf-api   Deployment/devops-pf-api   cpu: 69%/50%   1     3     2     80m
+devops-pf-api   Deployment/devops-pf-api   cpu: 69%/50%   1     3     2     80m
+devops-pf-api   Deployment/devops-pf-api   cpu: 69%/50%   1     3     2     80m
+devops-pf-api   Deployment/devops-pf-api   cpu: 69%/50%   1     3     2     80m
+devops-pf-api   Deployment/devops-pf-api   cpu: 69%/50%   1     3     2     80m
+devops-pf-api   Deployment/devops-pf-api   cpu: 69%/50%   1     3     2     81m
+devops-pf-api   Deployment/devops-pf-api   cpu: 49%/50%   1     3     3     81m
+devops-pf-api   Deployment/devops-pf-api   cpu: 49%/50%   1     3     3     81m
+devops-pf-api   Deployment/devops-pf-api   cpu: 49%/50%   1     3     3     81m
+devops-pf-api   Deployment/devops-pf-api   cpu: 49%/50%   1     3     3     81m
+devops-pf-api   Deployment/devops-pf-api   cpu: 49%/50%   1     3     3     81m
+devops-pf-api   Deployment/devops-pf-api   cpu: 49%/50%   1     3     3     81m
+devops-pf-api   Deployment/devops-pf-api   cpu: 49%/50%   1     3     3     81m
+devops-pf-api   Deployment/devops-pf-api   cpu: 49%/50%   1     3     3     81m
+devops-pf-api   Deployment/devops-pf-api   cpu: 49%/50%   1     3     3     81m
+devops-pf-api   Deployment/devops-pf-api   cpu: 49%/50%   1     3     3     81m
+devops-pf-api   Deployment/devops-pf-api   cpu: 49%/50%   1     3     3     82m
+devops-pf-api   Deployment/devops-pf-api   cpu: 40%/50%   1     3     3     82m
+devops-pf-api   Deployment/devops-pf-api   cpu: 40%/50%   1     3     3     82m
+devops-pf-api   Deployment/devops-pf-api   cpu: 40%/50%   1     3     3     82m
+devops-pf-api   Deployment/devops-pf-api   cpu: 40%/50%   1     3     3     82m
+
+> kubectl top pods -n devops-pf
+NAME                            CPU(cores)   MEMORY(bytes)   
+carga                           197m         1Mi             
+devops-pf-api-7f59f779b-ccxjz   20m          29Mi            
+devops-pf-api-7f59f779b-kc5fw   18m          31Mi            
+devops-pf-api-7f59f779b-vkp5w   22m          25Mi            
+
+> kubectl get events -n devops-pf --sort-by=.lastTimestamp
+LAST SEEN   TYPE     REASON              OBJECT                                  MESSAGE
+16m         Normal   Scheduled           pod/carga2                              Successfully assigned devops-pf/carga2 to docker-desktop
+16m         Normal   Scheduled           pod/carga1                              Successfully assigned devops-pf/carga1 to docker-desktop
+16m         Normal   Pulling             pod/carga1                              Pulling image "busybox:1.37"
+16m         Normal   Pulling             pod/carga2                              Pulling image "busybox:1.37"
+16m         Normal   Pulled              pod/carga1                              Successfully pulled image "busybox:1.37" in 9.964s (9.965s including waiting). Image size: 6767335 bytes.
+16m         Normal   Created             pod/carga1                              Container created
+16m         Normal   Started             pod/carga1                              Container started
+16m         Normal   Pulled              pod/carga2                              Successfully pulled image "busybox:1.37" in 4.5s (14.432s including waiting). Image size: 6767335 bytes.
+16m         Normal   Created             pod/carga2                              Container created
+16m         Normal   Started             pod/carga2                              Container started
+15m         Normal   SuccessfulCreate    replicaset/devops-pf-api-7f59f779b      Created pod: devops-pf-api-7f59f779b-tzb99
+15m         Normal   ScalingReplicaSet   deployment/devops-pf-api                Scaled up replica set devops-pf-api-7f59f779b from 1 to 3
+15m         Normal   SuccessfulCreate    replicaset/devops-pf-api-7f59f779b      Created pod: devops-pf-api-7f59f779b-ccxjz
+15m         Normal   Scheduled           pod/devops-pf-api-7f59f779b-tzb99       Successfully assigned devops-pf/devops-pf-api-7f59f779b-tzb99 to docker-desktop
+15m         Normal   Scheduled           pod/devops-pf-api-7f59f779b-ccxjz       Successfully assigned devops-pf/devops-pf-api-7f59f779b-ccxjz to docker-desktop
+15m         Normal   Pulled              pod/devops-pf-api-7f59f779b-ccxjz       Container image "ghcr.io/martinlpc/devops-coderhouse:sha-6edfa99" already present on machine and can be accessed by the pod
+15m         Normal   Pulled              pod/devops-pf-api-7f59f779b-tzb99       Container image "ghcr.io/martinlpc/devops-coderhouse:sha-6edfa99" already present on machine and can be accessed by the pod
+15m         Normal   Started             pod/devops-pf-api-7f59f779b-tzb99       Container started
+15m         Normal   Created             pod/devops-pf-api-7f59f779b-ccxjz       Container created
+15m         Normal   Started             pod/devops-pf-api-7f59f779b-ccxjz       Container started
+15m         Normal   Created             pod/devops-pf-api-7f59f779b-tzb99       Container created
+12m         Normal   Killing             pod/carga1                              Stopping container carga1
+12m         Normal   Killing             pod/carga2                              Stopping container carga2
+7m36s       Normal   SuccessfulRescale   horizontalpodautoscaler/devops-pf-api   New size: 2; reason: All metrics below target
+7m35s       Normal   ScalingReplicaSet   deployment/devops-pf-api                Scaled down replica set devops-pf-api-7f59f779b from 3 to 2
+7m34s       Normal   Killing             pod/devops-pf-api-7f59f779b-tzb99       Stopping container api
+7m34s       Normal   SuccessfulDelete    replicaset/devops-pf-api-7f59f779b      Deleted pod: devops-pf-api-7f59f779b-tzb99
+3m35s       Normal   Scheduled           pod/carga                               Successfully assigned devops-pf/carga to docker-desktop
+3m25s       Normal   Pulled              pod/carga                               Container image "busybox:1.37" already present on machine and can be accessed by the pod
+3m24s       Normal   Created             pod/carga                               Container created
+3m23s       Normal   Started             pod/carga                               Container started
+2m34s       Normal   SuccessfulCreate    replicaset/devops-pf-api-7f59f779b      Created pod: devops-pf-api-7f59f779b-vkp5w
+2m34s       Normal   SuccessfulRescale   horizontalpodautoscaler/devops-pf-api   New size: 3; reason: cpu resource utilization (percentage of request) above target
+2m34s       Normal   Scheduled           pod/devops-pf-api-7f59f779b-vkp5w       Successfully assigned devops-pf/devops-pf-api-7f59f779b-vkp5w to docker-desktop
+2m34s       Normal   ScalingReplicaSet   deployment/devops-pf-api                Scaled up replica set devops-pf-api-7f59f779b from 2 to 3
+2m33s       Normal   Created             pod/devops-pf-api-7f59f779b-vkp5w       Container created
+2m33s       Normal   Pulled              pod/devops-pf-api-7f59f779b-vkp5w       Container image "ghcr.io/martinlpc/devops-coderhouse:sha-6edfa99" already present on machine and can be accessed by the pod
+2m32s       Normal   Started             pod/devops-pf-api-7f59f779b-vkp5w       Container started

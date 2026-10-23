@@ -1,0 +1,5 @@
+> kubectl auth can-i list pods -n devops-pf --as=system:serviceaccount:monitoring:prometheus
+yes
+
+> kubectl auth can-i list pods -n kube-system --as=system:serviceaccount:monitoring:prometheus
+no

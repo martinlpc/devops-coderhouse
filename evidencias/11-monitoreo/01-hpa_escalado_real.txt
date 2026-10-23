@@ -1,0 +1,40 @@
+> kubectl get events -n devops-pf --sort-by=.lastTimestamp
+LAST SEEN   TYPE      REASON                         OBJECT                                  MESSAGE
+9m55s       Normal    Scheduled                      pod/devops-pf-api-7465c7cb9d-gt87f      Successfully assigned devops-pf/devops-pf-api-7465c7cb9d-gt87f to desktop-control-plane
+18h         Normal    SandboxChanged                 pod/devops-pf-api-dd7cd6d-z8lws         Pod sandbox changed, it will be killed and re-created.
+18h         Normal    Pulled                         pod/devops-pf-api-dd7cd6d-z8lws         Container image "devops-pf-api:1.0.0" already present on machine and can be accessed by the pod
+18h         Normal    Created                        pod/devops-pf-api-dd7cd6d-z8lws         Container created
+18h         Normal    Started                        pod/devops-pf-api-dd7cd6d-z8lws         Container started
+18h         Warning   Unhealthy                      pod/devops-pf-api-dd7cd6d-z8lws         Readiness probe failed: Get "http://10.244.0.2:3000/health": dial tcp 10.244.0.2:3000: connect: connection refused
+18h         Warning   Unhealthy                      pod/devops-pf-api-dd7cd6d-z8lws         Liveness probe failed: Get "http://10.244.0.2:3000/health": dial tcp 10.244.0.2:3000: connect: connection refused
+18h         Warning   FailedGetResourceMetric        horizontalpodautoscaler/devops-pf-api   failed to get cpu utilization: unable to get metrics for resource cpu: unable to fetch metrics from resource metrics API: the server is currently unable to handle the request (get pods.metrics.k8s.io)
+18h         Warning   FailedComputeMetricsReplicas   horizontalpodautoscaler/devops-pf-api   invalid metrics (1 invalid out of 1), first error is: failed to get cpu resource metric value: failed to get cpu utilization: unable to get metrics for resource cpu: unable to fetch metrics from resource metrics API: the server is currently unable to handle the request (get pods.metrics.k8s.io)
+18h         Normal    Sync                           ingress/devops-pf-api                   Scheduled for sync
+23m         Normal    SandboxChanged                 pod/devops-pf-api-dd7cd6d-z8lws         Pod sandbox changed, it will be killed and re-created.
+23m         Normal    Pulled                         pod/devops-pf-api-dd7cd6d-z8lws         Container image "devops-pf-api:1.0.0" already present on machine and can be accessed by the pod
+23m         Normal    Created                        pod/devops-pf-api-dd7cd6d-z8lws         Container created
+23m         Normal    Started                        pod/devops-pf-api-dd7cd6d-z8lws         Container started
+23m         Normal    Sync                           ingress/devops-pf-api                   Scheduled for sync
+23m         Warning   FailedGetResourceMetric        horizontalpodautoscaler/devops-pf-api   failed to get cpu utilization: unable to get metrics for resource cpu: unable to fetch metrics from resource metrics API: the server is currently unable to handle the request (get pods.metrics.k8s.io)
+23m         Warning   FailedComputeMetricsReplicas   horizontalpodautoscaler/devops-pf-api   invalid metrics (1 invalid out of 1), first error is: failed to get cpu resource metric value: failed to get cpu utilization: unable to get metrics for resource cpu: unable to fetch metrics from resource metrics API: the server is currently unable to handle the request (get pods.metrics.k8s.io)
+22m         Normal    Started                        pod/devops-pf-api-dd7cd6d-khp4m         Container started
+22m         Normal    Created                        pod/devops-pf-api-dd7cd6d-khp4m         Container created
+22m         Normal    Pulled                         pod/devops-pf-api-dd7cd6d-khp4m         Container image "devops-pf-api:1.0.0" already present on machine and can be accessed by the pod
+22m         Normal    Scheduled                      pod/devops-pf-api-dd7cd6d-khp4m         Successfully assigned devops-pf/devops-pf-api-dd7cd6d-khp4m to desktop-control-plane
+22m         Normal    SuccessfulRescale              horizontalpodautoscaler/devops-pf-api   New size: 2; reason: cpu resource utilization (percentage of request) above target
+22m         Normal    SuccessfulCreate               replicaset/devops-pf-api-dd7cd6d        Created pod: devops-pf-api-dd7cd6d-khp4m
+22m         Normal    ScalingReplicaSet              deployment/devops-pf-api                Scaled up replica set devops-pf-api-dd7cd6d from 1 to 2
+11m         Normal    ScalingReplicaSet              deployment/devops-pf-api                Scaled down replica set devops-pf-api-dd7cd6d from 2 to 1
+11m         Normal    Killing                        pod/devops-pf-api-dd7cd6d-khp4m         Stopping container api
+11m         Normal    SuccessfulRescale              horizontalpodautoscaler/devops-pf-api   New size: 1; reason: All metrics below target
+11m         Normal    SuccessfulDelete               replicaset/devops-pf-api-dd7cd6d        Deleted pod: devops-pf-api-dd7cd6d-khp4m
+9m56s       Normal    SuccessfulCreate               replicaset/devops-pf-api-7465c7cb9d     Created pod: devops-pf-api-7465c7cb9d-gt87f
+9m56s       Normal    ScalingReplicaSet              deployment/devops-pf-api                Scaled up replica set devops-pf-api-7465c7cb9d from 0 to 1
+9m55s       Normal    Pulled                         pod/devops-pf-api-7465c7cb9d-gt87f      Container image "devops-pf-api:1.0.0" already present on machine and can be accessed by the pod
+9m54s       Normal    Started                        pod/devops-pf-api-7465c7cb9d-gt87f      Container started
+9m54s       Normal    Created                        pod/devops-pf-api-7465c7cb9d-gt87f      Container created
+9m49s       Normal    SuccessfulDelete               replicaset/devops-pf-api-dd7cd6d        Deleted pod: devops-pf-api-dd7cd6d-z8lws
+9m49s       Normal    Killing                        pod/devops-pf-api-dd7cd6d-z8lws         Stopping container api
+9m49s       Normal    ScalingReplicaSet              deployment/devops-pf-api                Scaled down replica set devops-pf-api-dd7cd6d from 1 to 0
+9m37s       Warning   FailedGetResourceMetric        horizontalpodautoscaler/devops-pf-api   failed to get cpu utilization: did not receive metrics for targeted pods (pods might be unready)
+9m37s       Warning   FailedComputeMetricsReplicas   horizontalpodautoscaler/devops-pf-api   invalid metrics (1 invalid out of 1), first error is: failed to get cpu resource metric value: failed to get cpu utilization: did not receive metrics for targeted pods (pods might be unready)

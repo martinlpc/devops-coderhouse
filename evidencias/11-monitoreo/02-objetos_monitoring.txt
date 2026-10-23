@@ -1,0 +1,27 @@
+> kubectl get all -n monitoring
+NAME                              READY   STATUS    RESTARTS   AGE
+pod/grafana-9c4988c95-5rkpp       1/1     Running   0          48m
+pod/prometheus-658576ddc9-6427f   1/1     Running   0          48m
+
+NAME                 TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
+service/grafana      ClusterIP   10.110.120.13    <none>        3000/TCP   48m
+service/prometheus   ClusterIP   10.109.255.146   <none>        9090/TCP   48m
+
+NAME                         READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/grafana      1/1     1            1           48m
+deployment.apps/prometheus   1/1     1            1           48m
+
+NAME                                    DESIRED   CURRENT   READY   AGE
+replicaset.apps/grafana-9c4988c95       1         1         1       48m
+replicaset.apps/prometheus-658576ddc9   1         1         1       48m
+
+> kubectl get configmap,secret -n monitoring
+NAME                                   DATA   AGE
+configmap/grafana-dashboard-api        1      49m
+configmap/grafana-dashboard-provider   1      49m
+configmap/grafana-datasources          1      49m
+configmap/kube-root-ca.crt             1      49m
+configmap/prometheus-config            1      49m
+
+NAME                   TYPE     DATA   AGE
+secret/grafana-admin   Opaque   1      48m

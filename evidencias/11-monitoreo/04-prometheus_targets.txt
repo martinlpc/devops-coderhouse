@@ -1,0 +1,10 @@
+> GET /api/v1/targets?state=active
+
+job           pod                           scrapeUrl                     health
+---           ---                           ---------                     ------
+devops-pf-api devops-pf-api-7f59f779b-kc5fw http://10.1.0.8:3000/metrics  up
+devops-pf-api devops-pf-api-7f59f779b-ccxjz http://10.1.0.14:3000/metrics up
+devops-pf-api devops-pf-api-7f59f779b-vkp5w http://10.1.0.16:3000/metrics up
+prometheus                                  http://localhost:9090/metrics up
+
+
